@@ -50,7 +50,7 @@ jobs:
     docker:
       - image: cimg/base:stable
     steps:
-        - print_pipline_id
+        - print_pipeline_id
 
 
 # Invoke jobs via workflows
