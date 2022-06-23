@@ -33,11 +33,8 @@ jobs:
       - image: cimg/base:stable
     steps:
       - run:
-          name: "Create 'stored' directory"
-          command: mkdir stored
-      - run:
           name: "Say hello"
-          command: echo "this text file persists to the workspace" > stored/output.txt
+          command: echo "this text file persists to the workspace" > output.txt
       - persist_to_workspace:
           root: /tmp
           paths:
@@ -47,7 +44,7 @@ jobs:
       - image: cimg/base:stable
     steps:
       - attach_workspace:
-          at: /tmp/stored
+          at: /tmp
       - run:
           name: "Print output.txt content"
           command: "cat output.txt"
