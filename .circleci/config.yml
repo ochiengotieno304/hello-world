@@ -20,8 +20,10 @@ jobs:
       - run: |
           return 1
       
-      - run: echo "some step failed"
-          when: on_fail
+      - run:
+        name: "On fail" 
+        command: "echo some step failed"
+        when: on_fail
 
   print_env_var:
     <<: *defaults
