@@ -13,18 +13,15 @@ jobs:
   say-hello:
     <<: *defaults
     steps:
-      # - checkout
+      - checkout
       - run:
           name: "Say hello"
           command: "echo Hello, World!"
       - run: |
           return 1
-
-      print_error:
-        - run:
-            name: "some step faild"
-            command: "echo some step failed"
-            when: on_fail
+      
+      - run: echo "some step failed"
+          when: on_fail
 
   print_env_var:
     <<: *defaults
