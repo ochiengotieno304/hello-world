@@ -36,6 +36,7 @@ jobs:
           root: ~/
           paths:
             - output.txt
+
   print_output_file:
     docker:
       - image: cimg/base:stable
@@ -48,10 +49,9 @@ jobs:
 
   print_pipline_id_job:
     docker:
-      - image: cimg/base:stable
+      - image: alpine:3.14
     steps:
       - print_pipeline_id
-
 
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
@@ -62,6 +62,6 @@ workflows:
       - print_env_var
       - save_hello_world_output
       - print_output_file:
-          requires: 
+          requires:
             - save_hello_world_output
       - print_pipline_id_job
