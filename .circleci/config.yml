@@ -40,8 +40,8 @@ jobs:
     steps:
       - run:
           name: "Print my environment variable"
-          command: >
-            echo $MY_NAME
+          command: |
+            echo $MY_ENV
       
 
 # Invoke jobs via workflows
