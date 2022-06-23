@@ -39,7 +39,7 @@ jobs:
           name: "Say hello"
           command: echo "this text file persists to the workspace" > stored/output.txt
       - persist_to_workspace:
-          root: /tmp/stored
+          root: /tmp
           paths:
             - output.txt
   print_output_file:
