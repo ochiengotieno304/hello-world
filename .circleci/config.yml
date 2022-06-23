@@ -33,12 +33,12 @@ jobs:
       - image: cimg/base:stable
     steps:
       - run:
-          name: "Say hello"
-          command: echo "this text file persists to the workspace" > output
+          name: "Add output"
+          command: echo "this text file persists to the workspace" > /tmp/utput.txt
       - persist_to_workspace:
           root: /tmp
           paths:
-            - output
+            - output.txt
   print_output_file:
     docker:
       - image: cimg/base:stable
