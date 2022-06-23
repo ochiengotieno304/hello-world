@@ -34,9 +34,9 @@ jobs:
     steps:
       - run:
           name: "Add output"
-          command: echo "this text file persists to the workspace" > /tmp/utput.txt
+          command: echo "this text file persists to the workspace" > ~/output.txt
       - persist_to_workspace:
-          root: /tmp
+          root: ~/
           paths:
             - output.txt
   print_output_file:
@@ -44,10 +44,10 @@ jobs:
       - image: cimg/base:stable
     steps:
       - attach_workspace:
-          at: /tmp
+          at: ~/
       - run:
           name: "Print output.txt content"
-          command: "cat output"
+          command: "cat ~/output.txt"
 
 
 # Invoke jobs via workflows
