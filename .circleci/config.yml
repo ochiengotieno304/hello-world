@@ -18,22 +18,6 @@ jobs:
           name: "Say hello"
           command: "echo Hello, World!"
 
-  print_hello:
-    docker:
-      - image: circleci/node:13.8.0
-    steps:
-      - run:
-          name: "Say hello"
-          command: "echo Hello, "
-        
-  print_world:
-    docker:
-      - image: circleci/node:13.8.0
-    steps:
-      - run:
-          name: "Say World"
-          command: "echo World!"
-
   print_env_var:
     docker:
       - image: cimg/base:stable
@@ -43,7 +27,31 @@ jobs:
           name: "Print my environment variable"
           command: |
             echo $MY_ENV
-      
+
+  save_hello_world_output:
+    docker:
+      - image: cimg/base:stable
+    steps:
+      - run:
+          name: "Create 'stored' directory"
+          command: mkdir stored
+      - run:
+          name: "Say hello"
+          command: echo "this text file persists to the workspace" > stored/output.txt
+      - persist_to_workspace:
+          root: /tmp/stored
+          paths:
+            - output.txt
+  print_output_file:
+    docker:
+      - image: cimg/base:stable
+    steps:
+      - attach_workspace:
+          at: /tmp/stored
+      - run:
+          name: "Print output.txt content"
+          command: "cat output.txt"
+
 
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
@@ -51,7 +59,8 @@ workflows:
   say-hello-workflow:
     jobs:
       - say-hello
-      - print_hello
-      - print_world:
-          requires: [print_hello]
       - print_env_var
+      - save_hello_world_output
+      - print_output_file:
+          requires: 
+            - save_hello_world_output
