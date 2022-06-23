@@ -4,11 +4,15 @@ commands:
   print_pipeline_id:
     steps:
       - run: echo $CIRCLE_WORKFLOW_ID
+        
+
+defaults: &defaults
+  docker:
+    - image: circleci/node:13.8.0
 
 jobs:
   say-hello:
-    docker:
-      - image: cimg/base:stable
+    <<: *defaults
     steps:
       - checkout
       - run:
@@ -16,8 +20,7 @@ jobs:
           command: "echo Hello, World!"
 
   print_env_var:
-    docker:
-      - image: cimg/base:stable
+    <<: *defaults
     steps:
       - checkout
       - run:
@@ -26,8 +29,7 @@ jobs:
             echo $MY_ENV
 
   save_hello_world_output:
-    docker:
-      - image: cimg/base:stable
+    <<: *defaults
     steps:
       - run:
           name: "Add output"
@@ -38,8 +40,7 @@ jobs:
             - output.txt
 
   print_output_file:
-    docker:
-      - image: cimg/base:stable
+    <<: *defaults
     steps:
       - attach_workspace:
           at: ~/
@@ -48,8 +49,7 @@ jobs:
           command: "cat ~/output.txt"
 
   print_pipline_id_job:
-    docker:
-      - image: alpine:3.14
+    <<: *defaults
     steps:
       - print_pipeline_id
 
