@@ -17,11 +17,8 @@ jobs:
       - run:
           name: "Say hello"
           command: "echo Hello, World!"
-      - run: |
-          return 1
-      
       - run:
-          name: "On fail" 
+          name: "On fail"
           command: "echo some step failed"
           when: on_fail
 
